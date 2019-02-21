@@ -6,8 +6,9 @@
 
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
 
-# setup ENV
-# change and check the apt source to mirrors.ustc.edu.cn
+# setup ENV , get these ENVs with
+#   $ nvidia-docker run --rm -it nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04 printenv
+# change the apt source to mirrors.ustc.edu.cn
 RUN echo "export CUDA_VERSION=10.0.130" >> /root/.bashrc && \
     echo "export CUDA_PKG_VERSION=10-0=10.0.130-1" >> /root/.bashrc && \
     echo "export CUDNN_VERSION=7.4.2.24" >> /root/.bashrc && \

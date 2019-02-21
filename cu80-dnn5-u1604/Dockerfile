@@ -6,8 +6,9 @@
 
 FROM nvidia/cuda:8.0-cudnn5-devel-ubuntu16.04
 
-# setup ENV
-# change and check the apt source to mirrors.ustc.edu.cn
+# setup ENV , get these ENVs with
+#   $ nvidia-docker run --rm -it nvidia/cuda:8.0-cudnn5-devel-ubuntu16.04 printenv
+# change the apt source to mirrors.ustc.edu.cn
 RUN echo "export CUDA_VERSION=8.0.61" >> /root/.bashrc && \
     echo "export CUDA_PKG_VERSION=8-0=8.0.61-1" >> /root/.bashrc && \
     echo "export CUDNN_VERSION=5.1.10" >> /root/.bashrc && \
