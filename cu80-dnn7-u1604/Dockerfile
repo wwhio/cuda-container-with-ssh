@@ -6,8 +6,8 @@
 
 FROM nvidia/cuda:8.0-cudnn7-devel-ubuntu16.04
 
-# setup ENV
-# change and check the apt source to mirrors.ustc.edu.cn
+# setup ENV , get these ENVs with
+#   $ nvidia-docker run --rm -it nvidia/cuda:8.0-cudnn7-devel-ubuntu16.04 printenv
 RUN echo "export CUDA_VERSION=8.0.61" >> /root/.bashrc && \
     echo "export CUDA_PKG_VERSION=8-0=8.0.61-1" >> /root/.bashrc && \
     echo "export CUDNN_VERSION=7.2.1.38" >> /root/.bashrc && \
@@ -16,12 +16,7 @@ RUN echo "export CUDA_VERSION=8.0.61" >> /root/.bashrc && \
     echo "export NVIDIA_VISIBLE_DEVICES=all" >> /root/.bashrc && \
     echo "export PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:$PATH" >> /root/.bashrc && \
     echo "export LIBRARY_PATH=/usr/local/cuda/lib64/stubs" >> /root/.bashrc && \
-    echo "export LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64" >> /root/.bashrc && \
-    mv /etc/apt/sources.list /etc/apt/sources.list.bak && \
-    mkdir -p /root/.config/pip/
-COPY sources.list /etc/apt/
-COPY pip.conf /root/.config/pip/
-COPY .condarc /root/
+    echo "export LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64" >> /root/.bashrc
 
 # install openssh
 RUN apt-get clean && \

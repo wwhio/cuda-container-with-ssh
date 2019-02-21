@@ -6,8 +6,8 @@
 
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
 
-# setup ENV
-# change and check the apt source to mirrors.ustc.edu.cn
+# setup ENV , get these ENVs with
+#   $ nvidia-docker run --rm -it nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04 printenv
 RUN echo "export CUDA_VERSION=10.0.130" >> /root/.bashrc && \
     echo "export CUDA_PKG_VERSION=10-0=10.0.130-1" >> /root/.bashrc && \
     echo "export CUDNN_VERSION=7.4.2.24" >> /root/.bashrc && \
@@ -15,12 +15,7 @@ RUN echo "export CUDA_VERSION=10.0.130" >> /root/.bashrc && \
     echo "export NVIDIA_DRIVER_CAPABILITIES=compute,utility" >> /root/.bashrc && \
     echo "export NVIDIA_VISIBLE_DEVICES=all" >> /root/.bashrc && \
     echo "export PATH=/usr/local/cuda/bin:$PATH" >> /root/.bashrc && \
-    echo "export LIBRARY_PATH=/usr/local/cuda/lib64/stubs" >> /root/.bashrc && \
-    mv /etc/apt/sources.list /etc/apt/sources.list.bak && \
-    mkdir -p /root/.config/pip/
-COPY sources.list /etc/apt/
-COPY pip.conf /root/.config/pip/
-COPY .condarc /root/
+    echo "export LIBRARY_PATH=/usr/local/cuda/lib64/stubs" >> /root/.bashrc
 
 # install openssh
 RUN apt-get clean && \
